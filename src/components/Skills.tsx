@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart3, Database, Code2, Globe, TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 interface SkillCategory {
@@ -74,7 +74,7 @@ const Skills: React.FC = () => {
         },
     ];
 
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -84,14 +84,14 @@ const Skills: React.FC = () => {
         },
     };
 
-    const cardVariants = {
+    const cardVariants: Variants = {
         hidden: { y: 50, opacity: 0, scale: 0.9 },
         visible: {
             y: 0,
             opacity: 1,
             scale: 1,
             transition: {
-                type: 'spring',
+                type: 'spring' as const,
                 stiffness: 100,
                 damping: 12,
             },

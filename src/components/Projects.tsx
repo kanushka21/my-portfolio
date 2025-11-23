@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExternalLink, Github } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 interface Project {
@@ -66,7 +66,7 @@ const Projects: React.FC = () => {
         },
     ];
 
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -76,13 +76,13 @@ const Projects: React.FC = () => {
         },
     };
 
-    const cardVariants = {
+    const cardVariants: Variants = {
         hidden: { y: 50, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
             transition: {
-                type: 'spring',
+                type: 'spring' as const,
                 stiffness: 100,
                 damping: 12,
             },

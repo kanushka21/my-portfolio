@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Moon, Sun, Menu, X, Github } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 const Navbar: React.FC = () => {
@@ -18,8 +18,10 @@ const Navbar: React.FC = () => {
     const navLinks = [
         { name: 'Home', href: '#home' },
         { name: 'About', href: '#about' },
-        { name: 'Projects', href: '#projects' },
         { name: 'Skills', href: '#skills' },
+        { name: 'Projects', href: '#projects' },
+        { name: 'Education', href: '#education' },
+        { name: 'Certifications', href: '#certifications' },
         { name: 'Contact', href: '#contact' },
     ];
 
@@ -67,6 +69,15 @@ const Navbar: React.FC = () => {
                                 {link.name}
                             </a>
                         ))}
+                        <a
+                            href="https://github.com/kanushka21"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200"
+                            aria-label="GitHub Profile"
+                        >
+                            <Github className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                        </a>
                         <button
                             onClick={toggleTheme}
                             className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200"

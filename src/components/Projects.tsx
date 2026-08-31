@@ -1,16 +1,8 @@
-import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { Github, ArrowRight } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-
-interface Project {
-    title: string;
-    description: string;
-    tools: string[];
-    image: string;
-    github: string;
-    demo?: string;
-}
+import ProjectDetailModal, { ProjectData } from './ProjectDetailModal';
 
 const Projects: React.FC = () => {
     const [ref, inView] = useInView({
@@ -18,53 +10,99 @@ const Projects: React.FC = () => {
         threshold: 0.1,
     });
 
-    const projects: Project[] = [
+    const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
+
+    const projects: ProjectData[] = [
         {
-            title: 'Sales Analytics Dashboard',
-            description: 'Interactive Power BI dashboard analyzing sales trends, customer behavior, and revenue forecasts across multiple regions with real-time data integration.',
-            tools: ['Power BI', 'SQL', 'Python', 'DAX'],
+            id: 'retail-sales',
+            title: 'Retail Sales Analytics Platform',
+            category: 'Full-Stack Development',
+            shortDescription: 'A full-stack web application to monitor and analyze business sales, inventory, and performance.',
+            description: 'Built a full-stack web application to help businesses monitor and analyze sales, products, customers, inventory and overall performance, featuring a business performance dashboard, sales forecasting, product & inventory management, customer analysis, financial reporting, POS and sales history management, and JWT-based user authentication.',
+            problemSolved: 'Businesses struggle to keep track of disjointed sales data and inventory. This platform centralizes retail operations, providing real-time analytics and forecasting to make informed decisions.',
+            keyFeatures: [
+                'Business performance dashboard',
+                'Sales forecasting',
+                'Product & inventory management',
+                'Customer analysis & financial reporting',
+                'POS and sales history management',
+                'JWT-based user authentication'
+            ],
+            tools: ['React.js', 'Vite', 'Django', 'Django REST Framework', 'Python', 'SQL', 'JWT'],
+            image: '🛒',
+            github: 'https://github.com/kanushka21',
+        },
+        {
+            id: 'sales-dashboard',
+            title: 'Sales Analysis Dashboard',
+            category: 'Data Analytics',
+            shortDescription: 'An interactive dashboard to analyze sales, profit, customer, and product performance.',
+            description: 'Built an interactive dashboard to analyze sales, profit, customer and product performance, enabling data-driven business insights.',
+            problemSolved: 'Raw sales data is difficult to interpret. This dashboard visually breaks down complex data into actionable insights for business stakeholders.',
+            keyFeatures: [
+                'Interactive sales and profit analysis',
+                'Customer performance tracking',
+                'Product performance metrics',
+                'Data-driven business insights generation'
+            ],
+            tools: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Power BI'],
             image: '📊',
-            github: 'https://github.com/kanushka21/sales-dashboard',
-            demo: 'https://demo-link.com',
+            github: 'https://github.com/kanushka21',
         },
         {
-            title: 'Customer Segmentation Analysis',
-            description: 'Machine learning project using clustering algorithms to segment customers based on purchasing behavior, enabling targeted marketing strategies.',
-            tools: ['Python', 'Pandas', 'Scikit-learn', 'Matplotlib'],
-            image: '🎯',
-            github: 'https://github.com/kanushka21/customer-segmentation',
+            id: 'crypto-dashboard-new',
+            title: 'Crypto Dashboard',
+            category: 'Full-Stack Development',
+            shortDescription: 'A full-stack dashboard displaying live cryptocurrency prices and interactive charts.',
+            description: 'Developed a full-stack dashboard displaying live cryptocurrency prices with interactive charts, price alerts, favorite coins and user authentication.',
+            problemSolved: 'Tracking multiple cryptocurrencies across different exchanges is tedious. This dashboard provides a unified view with live updates and personalized alerts.',
+            keyFeatures: [
+                'Live cryptocurrency prices',
+                'Interactive charts',
+                'Price alerts',
+                'Favorite coins tracking',
+                'User authentication'
+            ],
+            tools: ['React.js', 'FastAPI', 'CSS'],
+            image: '🪙',
+            github: 'https://github.com/kanushka21',
         },
         {
-            title: 'Financial Data Visualization',
-            description: 'Tableau dashboard visualizing financial metrics, KPIs, and performance indicators with drill-down capabilities for detailed analysis.',
-            tools: ['Tableau', 'SQL', 'Excel'],
-            image: '💰',
-            github: 'https://github.com/kanushka21/financial-viz',
-            demo: 'https://demo-link.com',
+            id: 'customer-churn',
+            title: 'Customer Churn Analysis',
+            category: 'Data Science',
+            shortDescription: 'Exploratory data analysis on customer churn data to identify retention factors.',
+            description: 'Performed exploratory data analysis on customer churn data, visualized key trends and identified factors affecting customer retention.',
+            problemSolved: 'Losing customers is costly. This analysis helps identify why customers leave, allowing the business to proactively improve retention strategies.',
+            keyFeatures: [
+                'Exploratory data analysis (EDA)',
+                'Key trend visualization',
+                'Churn factor identification',
+                'Customer retention strategy support'
+            ],
+            tools: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn'],
+            image: '👥',
+            github: 'https://github.com/kanushka21',
         },
         {
-            title: 'Automated ETL Pipeline',
-            description: 'Built a scalable ETL pipeline to extract, transform, and load data from multiple sources into a centralized data warehouse for analytics.',
-            tools: ['Python', 'SQL', 'Airflow', 'PostgreSQL'],
-            image: '⚙️',
-            github: 'https://github.com/kanushka21/etl-pipeline',
-        },
-        {
-            title: 'Predictive Analytics Model',
-            description: 'Developed a predictive model to forecast product demand using historical sales data, improving inventory management and reducing costs.',
-            tools: ['Python', 'TensorFlow', 'Pandas', 'NumPy'],
-            image: '🔮',
-            github: 'https://github.com/kanushka21/predictive-model',
-        },
-        {
-            title: 'Web Analytics Platform',
-            description: 'Full-stack web application for tracking and analyzing website metrics, user behavior, and conversion rates with real-time updates.',
-            tools: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
-            image: '🌐',
-            github: 'https://github.com/kanushka21/web-analytics',
-            demo: 'https://demo-link.com',
-        },
+            id: 'phone-tracker',
+            title: 'Phone Location Tracker',
+            category: 'Python Scripting',
+            shortDescription: 'A tool that detects a phone number\'s approximate location and displays it on an interactive map.',
+            description: 'Built a tool that detects a phone number\'s approximate location and displays it on an interactive map.',
+            problemSolved: 'Provides quick geographical context for phone numbers by mapping country or region codes visually.',
+            keyFeatures: [
+                'Phone number parsing and validation',
+                'Geocoding for approximate location',
+                'Interactive map generation'
+            ],
+            tools: ['Python', 'phonenumbers', 'geocoder', 'folium'],
+            image: '📍',
+            github: 'https://github.com/kanushka21',
+        }
     ];
+
+
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -94,7 +132,7 @@ const Projects: React.FC = () => {
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-12"
                     initial={{ opacity: 0, y: -20 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
@@ -103,26 +141,24 @@ const Projects: React.FC = () => {
                         Featured <span className="gradient-text">Projects</span>
                     </h2>
                     <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                        A showcase of my data analysis and visualization projects
+                        A showcase of my software engineering and data analytics work
                     </p>
                 </motion.div>
 
+
+
                 {/* Projects Grid */}
                 <motion.div
-                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="grid md:grid-cols-2 lg:grid-cols-2 gap-8"
                     variants={containerVariants}
                     initial="hidden"
                     animate={inView ? 'visible' : 'hidden'}
                 >
-                    {projects.map((project, index) => (
+                    {projects.map((project) => (
                         <motion.div
-                            key={index}
+                            key={project.id}
                             variants={cardVariants}
-                            className="card overflow-hidden group cursor-pointer"
-                            whileHover={{
-                                y: -10,
-                                transition: { type: 'spring', stiffness: 300 },
-                            }}
+                            className="card overflow-hidden group flex flex-col h-full"
                         >
                             {/* Project Image/Icon */}
                             <div className="h-48 bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 flex items-center justify-center text-7xl relative overflow-hidden">
@@ -133,99 +169,82 @@ const Projects: React.FC = () => {
                                 />
                                 <motion.span
                                     className="relative z-10"
-                                    animate={{
-                                        rotate: [0, 10, -10, 0],
-                                    }}
-                                    transition={{
-                                        duration: 5,
-                                        repeat: Infinity,
-                                        ease: 'easeInOut',
-                                        delay: index * 0.2,
-                                    }}
                                     whileHover={{
                                         scale: 1.2,
-                                        rotate: 360,
-                                        transition: { duration: 0.6 },
+                                        rotate: [0, -10, 10, 0],
+                                        transition: { duration: 0.5 },
                                     }}
                                 >
                                     {project.image}
                                 </motion.span>
+                                {project.category.includes('Data Science') && project.title.includes('Research') && (
+                                    <div className="absolute top-4 right-4 bg-yellow-500/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20">
+                                        Research / Ongoing
+                                    </div>
+                                )}
                             </div>
 
                             {/* Project Content */}
-                            <div className="p-6 space-y-4">
-                                <motion.h3
-                                    className="text-xl font-bold font-display text-slate-900 dark:text-white"
-                                    whileHover={{ color: '#6366F1' }}
-                                >
-                                    {project.title}
-                                </motion.h3>
-                                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                    {project.description}
+                            <div className="p-6 space-y-4 flex flex-col flex-1">
+                                <div>
+                                    <span className="text-xs font-semibold tracking-wider uppercase text-primary-600 dark:text-primary-400 mb-2 block">
+                                        {project.category}
+                                    </span>
+                                    <h3 className="text-xl font-bold font-display text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                                        {project.title}
+                                    </h3>
+                                </div>
+                                
+                                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-1">
+                                    {project.shortDescription}
                                 </p>
 
                                 {/* Tools */}
-                                <div className="flex flex-wrap gap-2">
-                                    {project.tools.map((tool, toolIndex) => (
-                                        <motion.span
+                                <div className="flex flex-wrap gap-2 pt-2 pb-4">
+                                    {project.tools.slice(0, 4).map((tool) => (
+                                        <span
                                             key={tool}
-                                            className="px-3 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full"
-                                            initial={{ opacity: 0, scale: 0 }}
-                                            animate={inView ? { opacity: 1, scale: 1 } : {}}
-                                            transition={{ delay: 0.5 + index * 0.1 + toolIndex * 0.05 }}
-                                            whileHover={{ scale: 1.1, y: -2 }}
+                                            className="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full"
                                         >
                                             {tool}
-                                        </motion.span>
+                                        </span>
                                     ))}
+                                    {project.tools.length > 4 && (
+                                        <span className="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full">
+                                            +{project.tools.length - 4} more
+                                        </span>
+                                    )}
                                 </div>
 
-                                {/* Links */}
-                                <div className="flex gap-3 pt-2">
-                                    <motion.a
+                                {/* Actions */}
+                                <div className="flex gap-3 pt-4 border-t border-slate-100 dark:border-slate-800 mt-auto">
+                                    <button
+                                        onClick={() => setSelectedProject(project)}
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium transition-colors"
+                                    >
+                                        View Details
+                                        <ArrowRight className="w-4 h-4" />
+                                    </button>
+                                    <a
                                         href={project.github}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 rounded-lg text-sm font-medium group/link"
-                                        whileHover={{
-                                            scale: 1.05,
-                                            backgroundColor: 'rgb(226 232 240)',
-                                        }}
-                                        whileTap={{ scale: 0.95 }}
+                                        className="flex items-center justify-center px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors"
+                                        aria-label="View Source Code"
                                     >
-                                        <Github className="w-4 h-4" />
-                                        <span>Code</span>
-                                        <motion.div
-                                            initial={{ opacity: 0, x: -5 }}
-                                            whileHover={{ opacity: 1, x: 0 }}
-                                        >
-                                            <ExternalLink className="w-3 h-3" />
-                                        </motion.div>
-                                    </motion.a>
-                                    {project.demo && (
-                                        <motion.a
-                                            href={project.demo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium"
-                                            whileHover={{ scale: 1.05, backgroundColor: '#4F46E5' }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <span>Demo</span>
-                                            <motion.div
-                                                initial={{ opacity: 0, x: -5 }}
-                                                whileHover={{ opacity: 1, x: 0 }}
-                                            >
-                                                <ExternalLink className="w-3 h-3" />
-                                            </motion.div>
-                                        </motion.a>
-                                    )}
+                                        <Github className="w-5 h-5" />
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
             </div>
+
+            <ProjectDetailModal
+                project={selectedProject}
+                onClose={() => setSelectedProject(null)}
+            />
         </section>
     );
 };

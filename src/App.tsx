@@ -7,8 +7,10 @@ import './index.css';
 
 // Lazy load heavy sections to improve performance
 const About = React.lazy(() => import('./components/About'));
-const Projects = React.lazy(() => import('./components/Projects'));
 const Skills = React.lazy(() => import('./components/Skills'));
+const Projects = React.lazy(() => import('./components/Projects'));
+const Education = React.lazy(() => import('./components/Education'));
+const Certifications = React.lazy(() => import('./components/Certifications'));
 const Contact = React.lazy(() => import('./components/Contact'));
 
 // Loading fallback component
@@ -27,8 +29,10 @@ function App() {
           <Hero />
           <Suspense fallback={<SectionLoader />}>
             <About />
-            <Projects />
             <Skills />
+            <Projects />
+            <Education />
+            <Certifications />
             <Contact />
           </Suspense>
         </main>

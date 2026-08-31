@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart3, Database, Code2, Globe, TrendingUp } from 'lucide-react';
+import { Database, Code2, Globe, TrendingUp, Wrench } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -7,7 +7,7 @@ interface SkillCategory {
     title: string;
     icon: React.ElementType;
     color: string;
-    skills: { name: string; level: number }[];
+    skills: string[];
 }
 
 const Skills: React.FC = () => {
@@ -18,59 +18,40 @@ const Skills: React.FC = () => {
 
     const skillCategories: SkillCategory[] = [
         {
-            title: 'Data Analysis',
-            icon: TrendingUp,
+            title: 'Languages',
+            icon: Code2,
             color: 'from-blue-500 to-blue-600',
-            skills: [
-                { name: 'Python', level: 95 },
-                { name: 'Pandas', level: 90 },
-                { name: 'NumPy', level: 85 },
-                { name: 'Statistics', level: 88 },
-            ],
+            skills: ['Python', 'JavaScript', 'PHP', 'Java', 'C++', 'C', 'C#', 'SQL', 'R'],
         },
         {
-            title: 'Data Visualization',
-            icon: BarChart3,
-            color: 'from-purple-500 to-purple-600',
-            skills: [
-                { name: 'Power BI', level: 92 },
-                { name: 'Tableau', level: 88 },
-                { name: 'Matplotlib', level: 85 },
-                { name: 'Seaborn', level: 82 },
-            ],
+            title: 'Frontend',
+            icon: Globe,
+            color: 'from-cyan-500 to-cyan-600',
+            skills: ['React.js', 'Vite', 'CSS'],
+        },
+        {
+            title: 'Backend',
+            icon: Database,
+            color: 'from-green-500 to-green-600',
+            skills: ['Django', 'Django REST Framework', 'FastAPI', 'Flask', 'REST APIs'],
         },
         {
             title: 'Databases',
-            icon: Database,
-            color: 'from-green-500 to-green-600',
-            skills: [
-                { name: 'SQL', level: 93 },
-                { name: 'MySQL', level: 88 },
-                { name: 'PostgreSQL', level: 85 },
-                { name: 'MongoDB', level: 80 },
-            ],
+            icon: Database, // I can reuse Database here or something else.
+            color: 'from-indigo-500 to-indigo-600',
+            skills: ['MySQL', 'Firebase', 'MongoDB'],
         },
         {
-            title: 'Programming',
-            icon: Code2,
-            color: 'from-orange-500 to-orange-600',
-            skills: [
-                { name: 'Python', level: 95 },
-                { name: 'JavaScript', level: 85 },
-                { name: 'R', level: 75 },
-                { name: 'TypeScript', level: 82 },
-            ],
+            title: 'Data Analysis',
+            icon: TrendingUp,
+            color: 'from-purple-500 to-purple-600',
+            skills: ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'EDA'],
         },
         {
-            title: 'Web Development',
-            icon: Globe,
-            color: 'from-cyan-500 to-cyan-600',
-            skills: [
-                { name: 'React', level: 88 },
-                { name: 'Node.js', level: 83 },
-                { name: 'HTML/CSS', level: 90 },
-                { name: 'Vercel', level: 85 },
-            ],
+            title: 'BI & Tools',
+            icon: Wrench,
+            color: 'from-yellow-500 to-yellow-600',
+            skills: ['Power BI', 'Excel', 'Git', 'VS Code', 'JWT'],
         },
     ];
 
@@ -149,109 +130,21 @@ const Skills: React.FC = () => {
                             </div>
 
                             {/* Skills List */}
-                            <div className="space-y-4">
+                            <div className="flex flex-wrap gap-2">
                                 {category.skills.map((skill, skillIndex) => (
-                                    <motion.div
-                                        key={skill.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                                    <motion.span
+                                        key={skill}
+                                        className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm font-medium border border-slate-200 dark:border-slate-700"
+                                        initial={{ opacity: 0, scale: 0 }}
+                                        animate={inView ? { opacity: 1, scale: 1 } : {}}
                                         transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
                                     >
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                                {skill.name}
-                                            </span>
-                                            <motion.span
-                                                className="text-sm font-semibold text-slate-600 dark:text-slate-400"
-                                                initial={{ opacity: 0 }}
-                                                animate={inView ? { opacity: 1 } : {}}
-                                                transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 + 0.3 }}
-                                            >
-                                                {skill.level}%
-                                            </motion.span>
-                                        </div>
-                                        <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                                            <motion.div
-                                                className={`h-full bg-gradient-to-r ${category.color} rounded-full relative`}
-                                                initial={{ width: 0 }}
-                                                animate={inView ? { width: `${skill.level}%` } : {}}
-                                                transition={{
-                                                    duration: 1,
-                                                    delay: categoryIndex * 0.1 + skillIndex * 0.05 + 0.2,
-                                                    ease: 'easeOut',
-                                                }}
-                                            >
-                                                <motion.div
-                                                    className="absolute inset-0 bg-white/30"
-                                                    animate={{
-                                                        x: ['-100%', '100%'],
-                                                    }}
-                                                    transition={{
-                                                        duration: 2,
-                                                        repeat: Infinity,
-                                                        ease: 'linear',
-                                                        delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                                                    }}
-                                                />
-                                            </motion.div>
-                                        </div>
-                                    </motion.div>
+                                        {skill}
+                                    </motion.span>
                                 ))}
                             </div>
                         </motion.div>
                     ))}
-                </motion.div>
-
-                {/* Additional Skills Tags */}
-                <motion.div
-                    className="mt-16"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                >
-                    <h3 className="text-2xl font-bold font-display text-center mb-8 text-slate-900 dark:text-white">
-                        Additional Technologies
-                    </h3>
-                    <div className="flex flex-wrap justify-center gap-3">
-                        {[
-                            'Excel',
-                            'Git',
-                            'Docker',
-                            'AWS',
-                            'Azure',
-                            'Jupyter',
-                            'VS Code',
-                            'Airflow',
-                            'Spark',
-                            'scikit-learn',
-                            'TensorFlow',
-                            'REST APIs',
-                            'ETL',
-                            'Data Warehousing',
-                        ].map((tech, index) => (
-                            <motion.span
-                                key={tech}
-                                className="px-4 py-2 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 rounded-lg font-medium shadow-sm cursor-default"
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                                transition={{
-                                    duration: 0.3,
-                                    delay: 1 + index * 0.05,
-                                    type: 'spring',
-                                    stiffness: 200,
-                                }}
-                                whileHover={{
-                                    scale: 1.1,
-                                    y: -5,
-                                    boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
-                                    transition: { duration: 0.2 },
-                                }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                {tech}
-                            </motion.span>
-                        ))}
-                    </div>
                 </motion.div>
             </div>
         </section>

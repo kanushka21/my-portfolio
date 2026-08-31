@@ -1,10 +1,10 @@
 import React from 'react';
-import { Download, Mail, ArrowRight } from 'lucide-react';
+import { Download, Github, Linkedin, FolderGit2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
-    const scrollToContact = () => {
-        const element = document.querySelector('#contact');
+    const scrollToProjects = () => {
+        const element = document.querySelector('#projects');
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
@@ -123,10 +123,10 @@ const Hero: React.FC = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
-                            Hi, I'm Kanushka Thejan
+                            Hi, I'm Kanushka
                         </motion.span>
                         <motion.span
-                            className="gradient-text"
+                            className="gradient-text text-3xl md:text-4xl lg:text-5xl block mt-2"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{
@@ -136,7 +136,7 @@ const Hero: React.FC = () => {
                                 stiffness: 100,
                             }}
                         >
-                            Data Analyst
+                            Software Engineering & Data Analytics Enthusiast
                         </motion.span>
                     </motion.h1>
 
@@ -145,88 +145,62 @@ const Hero: React.FC = () => {
                         variants={itemVariants}
                         className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed"
                     >
-                        Transforming raw data into actionable insights through advanced analytics,
-                        visualization, and strategic thinking. Based in Sri Lanka, specialized in Python, SQL, Power BI,
-                        and modern web technologies.
+                        I am an Information Technology undergraduate passionate about building practical software solutions and transforming data into meaningful insights. I enjoy working with web technologies, Python, databases, data visualization, and data science.
                     </motion.p>
 
                     {/* CTA Buttons */}
                     <motion.div
                         variants={itemVariants}
-                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                        className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap"
                     >
-                        <motion.a
-                            href="/cv.pdf"
-                            download
+                        <motion.button
+                            onClick={scrollToProjects}
                             className="btn-primary inline-flex items-center gap-2 group"
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                        >
+                            <FolderGit2 className="w-5 h-5" />
+                            View Projects
+                        </motion.button>
+                        
+                        <motion.a
+                            href="/Kanushka_Thejan_CV.pdf"
+                            download="Kanushka_Thejan_CV.pdf"
+                            className="btn-secondary inline-flex items-center gap-2 group"
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                         >
                             <Download className="w-5 h-5" />
                             Download CV
-                            <motion.div
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{ duration: 1.5, repeat: Infinity }}
-                            >
-                                <ArrowRight className="w-4 h-4" />
-                            </motion.div>
                         </motion.a>
-                        <motion.button
-                            onClick={scrollToContact}
-                            className="btn-secondary inline-flex items-center gap-2 group"
+
+                        <motion.a
+                            href="https://github.com/kanushka21"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-secondary inline-flex items-center gap-2 group bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border-none"
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                         >
-                            <Mail className="w-5 h-5" />
-                            Contact Me
-                            <motion.div
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-                            >
-                                <ArrowRight className="w-4 h-4" />
-                            </motion.div>
-                        </motion.button>
-                    </motion.div>
+                            <Github className="w-5 h-5" />
+                            GitHub
+                        </motion.a>
 
-                    {/* Stats */}
-                    <motion.div
-                        variants={itemVariants}
-                        className="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto"
-                    >
-                        {[
-                            { value: '5+', label: 'Years Experience' },
-                            { value: '50+', label: 'Projects Completed' },
-                            { value: '10+', label: 'Tools Mastered' },
-                        ].map((stat, index) => (
-                            <motion.div
-                                key={stat.label}
-                                className="text-center"
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{
-                                    duration: 0.5,
-                                    delay: 1.2 + index * 0.1,
-                                    type: 'spring',
-                                    stiffness: 200,
-                                }}
-                                whileHover={{ scale: 1.1, y: -5 }}
-                            >
-                                <motion.div
-                                    className="text-3xl md:text-4xl font-bold gradient-text mb-2"
-                                    animate={{ scale: [1, 1.05, 1] }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        delay: index * 0.3,
-                                    }}
-                                >
-                                    {stat.value}
-                                </motion.div>
-                                <div className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
-                            </motion.div>
-                        ))}
+                        <motion.a
+                            href="https://www.linkedin.com/in/kanushka-thejan-dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-secondary inline-flex items-center gap-2 group bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border-none"
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                        >
+                            <Linkedin className="w-5 h-5" />
+                            LinkedIn
+                        </motion.a>
                     </motion.div>
                 </motion.div>
             </div>

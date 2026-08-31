@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code2, Database, BarChart3, Globe, GitBranch, Layers } from 'lucide-react';
+// No lucide-react imports needed
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -8,19 +8,6 @@ const About: React.FC = () => {
         triggerOnce: true,
         threshold: 0.1,
     });
-
-    const skills = [
-        { name: 'Python', icon: Code2, color: 'from-blue-500 to-blue-600' },
-        { name: 'SQL', icon: Database, color: 'from-orange-500 to-orange-600' },
-        { name: 'Power BI', icon: BarChart3, color: 'from-yellow-500 to-yellow-600' },
-        { name: 'Tableau', icon: Layers, color: 'from-blue-400 to-blue-500' },
-        { name: 'Excel', icon: BarChart3, color: 'from-green-500 to-green-600' },
-        { name: 'React', icon: Code2, color: 'from-cyan-500 to-cyan-600' },
-        { name: 'Node.js', icon: Globe, color: 'from-green-600 to-green-700' },
-        { name: 'Pandas', icon: Database, color: 'from-purple-500 to-purple-600' },
-        { name: 'Git', icon: GitBranch, color: 'from-red-500 to-red-600' },
-        { name: 'Vercel', icon: Globe, color: 'from-slate-700 to-slate-800' },
-    ];
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -58,7 +45,7 @@ const About: React.FC = () => {
                         About <span className="gradient-text">Me</span>
                     </h2>
                     <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                        Passionate about turning complex data into clear, actionable insights
+                        Passionate about building software solutions and exploring data insights
                     </p>
                 </motion.div>
 
@@ -119,31 +106,31 @@ const About: React.FC = () => {
                             variants={itemVariants}
                             className="text-2xl md:text-3xl font-bold font-display text-slate-900 dark:text-white"
                         >
-                            Turning Data into Decisions
+                            Software Engineering & Data Analytics
                         </motion.h3>
                         <motion.p
                             variants={itemVariants}
                             className="text-slate-600 dark:text-slate-400 leading-relaxed"
                         >
-                            I'm a passionate Data Analyst with expertise in extracting meaningful insights
-                            from complex datasets. With a strong foundation in statistical analysis, data
-                            visualization, and business intelligence, I help organizations make data-driven
-                            decisions that drive growth and efficiency.
+                            I am an Information Technology undergraduate interested in Software Engineering and Data Analytics. I enjoy designing and developing practical software solutions while also exploring data to identify patterns, trends, and insights.
                         </motion.p>
                         <motion.p
                             variants={itemVariants}
                             className="text-slate-600 dark:text-slate-400 leading-relaxed"
                         >
-                            My approach combines technical proficiency with business acumen, ensuring that
-                            every analysis not only answers questions but also provides actionable recommendations.
-                            I specialize in creating interactive dashboards, automating data pipelines, and
-                            developing predictive models.
+                            My technical interests include full-stack web development, Python programming, database systems, data analysis, visualization, data science, and API integration.
+                        </motion.p>
+                        <motion.p
+                            variants={itemVariants}
+                            className="text-slate-600 dark:text-slate-400 leading-relaxed"
+                        >
+                            I continuously improve my technical and problem-solving skills through academic projects, personal projects, and online learning.
                         </motion.p>
                         <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
                             {[
-                                { color: 'bg-primary-500', text: '5+ Years Experience' },
-                                { color: 'bg-accent-500', text: '50+ Projects' },
-                                { color: 'bg-green-500', text: 'Multiple Industries' },
+                                { color: 'bg-primary-500', text: 'Software Development' },
+                                { color: 'bg-accent-500', text: 'Data Analytics' },
+                                { color: 'bg-green-500', text: 'Data Science' },
                             ].map((item, index) => (
                                 <motion.div
                                     key={item.text}
@@ -170,57 +157,6 @@ const About: React.FC = () => {
                         </motion.div>
                     </motion.div>
                 </div>
-
-                {/* Skills Grid */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                    <h3 className="text-2xl md:text-3xl font-bold font-display text-center mb-8 text-slate-900 dark:text-white">
-                        Technologies & Tools
-                    </h3>
-                    <motion.div
-                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate={inView ? 'visible' : 'hidden'}
-                    >
-                        {skills.map((skill, index) => (
-                            <motion.div
-                                key={skill.name}
-                                className="card p-6 flex flex-col items-center justify-center gap-3 cursor-pointer"
-                                variants={itemVariants}
-                                whileHover={{
-                                    scale: 1.1,
-                                    rotate: [0, -5, 5, 0],
-                                    transition: { duration: 0.3 },
-                                }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <motion.div
-                                    className={`p-3 rounded-xl bg-gradient-to-br ${skill.color} shadow-lg`}
-                                    whileHover={{
-                                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                                    }}
-                                    animate={{
-                                        y: [0, -5, 0],
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        delay: index * 0.1,
-                                    }}
-                                >
-                                    <skill.icon className="w-6 h-6 text-white" />
-                                </motion.div>
-                                <span className="font-semibold text-slate-700 dark:text-slate-300 text-center">
-                                    {skill.name}
-                                </span>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </motion.div>
             </div>
         </section>
     );

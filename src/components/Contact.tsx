@@ -28,15 +28,35 @@ const Contact: React.FC = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate form submission
-        setTimeout(() => {
-            setStatus('success');
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your Web3Forms access key
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                }),
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            setStatus('error');
+        } finally {
             setIsSubmitting(false);
-            setFormData({ name: '', email: '', message: '' });
-
-            // Reset status after 5 seconds
             setTimeout(() => setStatus('idle'), 5000);
-        }, 1500);
+        }
     };
 
     const socialLinks = [
@@ -96,7 +116,7 @@ const Contact: React.FC = () => {
                         Get In <span className="gradient-text">Touch</span>
                     </h2>
                     <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                        Have a project in mind or want to discuss opportunities? Let's connect!
+                        I'm interested in opportunities related to Software Engineering, Data Analytics, and Data Science. Feel free to contact me regarding internships, projects, collaborations, or graduate opportunities.
                     </p>
                 </motion.div>
 
@@ -214,8 +234,7 @@ const Contact: React.FC = () => {
                                 Connect With Me
                             </h3>
                             <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                                I'm always open to discussing new projects, creative ideas, or opportunities
-                                to be part of your vision. Feel free to reach out through any of these platforms.
+                        I'm interested in opportunities related to Software Engineering, Data Analytics, and Data Science. Feel free to contact me regarding internships, projects, collaborations, or graduate opportunities.
                             </p>
 
                             {/* Social Links */}
@@ -224,8 +243,8 @@ const Contact: React.FC = () => {
                                     <motion.a
                                         key={link.name}
                                         href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        target={link.name === 'Email' ? undefined : "_blank"}
+                                        rel={link.name === 'Email' ? undefined : "noopener noreferrer"}
                                         className={`flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-all group ${link.color}`}
                                         whileHover={{ scale: 1.02, x: 5 }}
                                         whileTap={{ scale: 0.98 }}
